@@ -10,13 +10,13 @@ import (
 	//"github.com/gin-contrib/pprof"
 	
 	routers "github.com/mazeForGit/WordlistExtractor/routers"
-	data "github.com/mazeForGit/WordlistExtractor/data"
+	data "github.com/mazeForGit/WordlistExtractor/model"
 )
 
 func port() string {
 	port := os.Getenv("PORT")
 	if len(port) == 0 {
-		port = "8080"
+		port = "6002"
 	}
 	return ":" + port
 }
@@ -44,7 +44,7 @@ func main() {
 	router.PUT("/config", routers.ConfigPUT)
 
 	log.Info("Starting background process")
-	go data.ExecuteLongRunningTaskOnRequest()
+	go model.ExecuteLongRunningTaskOnRequest()
 	
 	log.Info("Starting gowebapp on port " + port())
 	router.Run(port())
